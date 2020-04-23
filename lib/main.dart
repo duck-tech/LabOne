@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget{
       child: new Row(
         children: <Widget>[
           new Expanded(
-            child: new Column(//bài khác mà anh?
+            child: new Column(
               children: <Widget>[
                 new Container(
                     padding: const EdgeInsets.only(bottom: 10.0),
