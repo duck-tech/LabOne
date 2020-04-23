@@ -96,4 +96,4 @@ textBottom
 );
 }
 
-}out_example
+}
