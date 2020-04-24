@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(new MyApp());
 
-class MyApp extends StatelessWidget{
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -14,13 +14,16 @@ class MyApp extends StatelessWidget{
       child: new Row(
         children: <Widget>[
           new Expanded(
-            child: new Column(//bài khác mà anh?
+            child: new Column(
               children: <Widget>[
                 new Container(
                     padding: const EdgeInsets.only(bottom: 10.0),
                     child: new Text(
                       "Viet's Channel",
-                      style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+                      style: new TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18.0
+                      ),
                     )
                 ),
                 new Text("This is contains video in development, laptop, pc.")
@@ -28,13 +31,22 @@ class MyApp extends StatelessWidget{
               crossAxisAlignment: CrossAxisAlignment.start,
             ),
           ),
-          new Icon(Icons.favorite , color: Colors.red,),
-          new Text("100", style: new TextStyle(fontSize: 10.0),),
+          new Icon(
+            Icons.favorite,
+            color: Colors.red,
+          ),
+          new Text(
+            "100",
+            style:
+            new TextStyle(
+                fontSize: 10.0
+            ),
+          ),
         ],
       ),
     );
 
-    Widget buildButton(IconData iconData, String titleBtn){
+    Widget buildButton(IconData iconData, String titleBtn) {
       final Color color = Colors.blue;
       return new Column(
         children: <Widget>[
@@ -43,13 +55,17 @@ class MyApp extends StatelessWidget{
             margin: const EdgeInsets.only(
                 top: 5.0
             ),
-            child: new Text(titleBtn, style: new TextStyle(color: color, fontWeight: FontWeight.w700),),
+            child: new Text(titleBtn,
+              style: new TextStyle(
+                  color: color,
+                  fontWeight: FontWeight.w700),
+            ),
           )
         ],
       );
     }
 
-    Widget btnSection(){
+    Widget btnSection() {
       return new Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
