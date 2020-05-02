@@ -1,96 +1,81 @@
 import 'package:flutter/material.dart';
-import 'package:english_words/english_words.dart';
 
-void main() => runApp(new MyApp());
+void main() => runApp(MyApp());
 
-class RandomEnglishWords extends StatefulWidget{
+class MainPage extends StatefulWidget {
+  final String title;
+//  custom contructor, add property title
+  MainPage({this.title}) : super();
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return new RandomEnglishWordsState();
+//    return a state object
+    return new MainPageState();
   }
 }
 
-class RandomEnglishWordsState extends State<RandomEnglishWords>{
-  final _words = <WordPair>[];
-  final _checkedWord = new Set<WordPair>();
-
-  //trả về một widget
+class MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("The English Words"),
-        actions: <Widget>[
-          new IconButton(icon: new Icon(Icons.list), onPressed: _pushToSaveWordsScreen)
-        ],
-      ),
-      body: new ListView.builder(itemBuilder: (context , index){
-        if(index >= _words.length) _words.addAll(generateWordPairs().take(10));
-        return _buildRow(_words[index] , index);
-      }),
+        appBar: new AppBar(
+          title: Text(widget.title),
+        ),
+        body: new GridView.extent(
+          mainAxisSpacing: 5.0, //khoảng cách giữa các hàng trong gridview
+          crossAxisSpacing: 5.0, // khoảng cách các cột trong gridview
+          maxCrossAxisExtent: 150.0,// dựa và tỉ lệ chia cột, số càng nhỏ cột càng nhiều và ngược lại
+          children: _buildGridTitles(10),
+        )
     );
   }
 
-  _pushToSaveWordsScreen(){
-    final pageRoute = new MaterialPageRoute(builder: (context){
-//      _checkedWord (list of WordPair) => map => lazy list (Iterable) of ListTitle
-      final listTitle = _checkedWord.map((wordPair){
-        return new ListTile(
-          title: new Text(
-            wordPair.asUpperCase,
-            style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+  List<Widget> _buildGridTitles(numberImage){
+    List<Stack> container = new List<Stack>.generate(numberImage , (int index){
+//      index = 0 , 1 , 2 ,3 , 4, .....
+      final imageName = index < 9 ? "images/image_0${index + 1}.jpg" : "images/image_${index + 1}.jpg";
+      return new Stack(
+        alignment: const Alignment(1.0, 1.0),
+        children: <Widget>[
+          new Container(
+            child: new Image.asset(
+              imageName,
+              width: 150.0,
+              height: 150.0,
+              fit: BoxFit.fill, //co ảnh cho vừa 1 khối hình chữ vuông, trong Stack không dùng đc box
+            ),
           ),
-        );
-      });
-//      return a Widget
-      return new Scaffold(
-        appBar: new AppBar(
-          title: new Text("Checked Word"),
-        ),
-        body: new ListView(
-          children: listTitle.toList() //lazy list (Iterable) => list
-        ),
+          new Container(
+
+            padding: const EdgeInsets.all(10.0),
+            decoration: new BoxDecoration(
+              color: new Color.fromARGB(100, 100, 100, 100),
+            ),
+            child:  new Text(
+              "Hello",
+              style: new TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w600
+              ),
+            ),
+          ),
+        ],
       );
 
     });
-    Navigator.of(context).push(pageRoute);
+    return container;
   }
 
-  Widget _buildRow(WordPair wordPair , int index){
-
-    final color = index % 2 == 0 ? Colors.red : Colors.blue;
-    final isChecked = _checkedWord.contains(wordPair);
-
-    // Tạo ra từng hàng một
-    return new ListTile(
-      leading: new Icon(isChecked ? Icons.check_box : Icons.check_box_outline_blank, color: color,),
-      title: new Text(
-        wordPair.asUpperCase,
-        style: new TextStyle(fontSize: 18.0, color: color),
-      ),
-      onTap: (){
-        setState(() {
-          if(isChecked){
-            _checkedWord.remove(wordPair);
-          }else{
-            _checkedWord.add(wordPair);
-          }
-        });
-      },
-    );
-  }
 }
 
-class MyApp extends StatelessWidget{
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    final wordPair = WordPair.random();
     return new MaterialApp(
-      title: "",
-      home: new RandomEnglishWords()
+        title: "",
+        home: new MainPage(title: "GridView of Images")
     );
   }
 }
