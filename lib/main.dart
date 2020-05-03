@@ -6,61 +6,31 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    var card = new Card(
-      child: new Column(
-        children: <Widget>[
-          new ListTile(
-            leading: new Icon(Icons.account_box, color: Colors.blue, size: 28.0,),
-            title: new Text(
-                "Nguyễn Văn Việt",
-                style: new TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.w400
-                ),
-            ),
-            subtitle: new Text("Software Developer"),
-          ),
-          new Divider(color: Colors.blue, indent: 18.0,),
-          new ListTile(
-            leading: new Icon(Icons.email, color: Colors.blue, size: 28.0,),
-            title: new Text(
-              "nvviet.18it1@sict.udn.vn",
-              style: new TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.w400
-              ),
-            ),
-          ),
-          new ListTile(
-            leading: new Icon(Icons.phone, color: Colors.blue, size: 28.0,),
-            title: new Text(
-              "+84 934 773 454",
-              style: new TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.w400
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-    final sizedBox = new Container(
-      margin: EdgeInsets.only(left: 10.0, right: 10.0),
-      child: new SizedBox(
-        height: 250.0,
-        child: card,
-      ),
-    );
-    final center = new Center(
-      child: sizedBox,
-    );
+    final GlobalKey <ScaffoldState> _scaffolKey = new GlobalKey<ScaffoldState>();
+    _showSnackBar() {
+      print("Show SnackBar here!");
+      final snackbar = new SnackBar(
+        content: new Text("This is a SnackBar"),
+        duration: new Duration(seconds: 3),
+        backgroundColor: Colors.green,
+        action: new SnackBarAction(label: "OK", onPressed: () {
+          print("Press OK on SnackBar");
+        }),
+      );
+      _scaffolKey.currentState.showSnackBar(snackbar);
+    }
     return new MaterialApp(
       title: "",
       home: new Scaffold(
+        key: _scaffolKey,
         appBar: new AppBar(
-          title: new Text("Flutter Card and SizedBox"),
+          title: new Text("Demo SnackBar"),
+          actions: <Widget>[
+            new IconButton(
+                icon: new Icon(Icons.info),
+                onPressed: _showSnackBar)
+          ],
         ),
-        body: center,
       ),
     );
   }
